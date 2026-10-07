@@ -1,103 +1,101 @@
 <details>
 <summary>ENG (English Version)</summary>
 
-# Artificial Intelligence & Computer Vision Projects
+# Age & Gender Recognition
 
-## 1. Understanding Artificial Intelligence
-This section provides an overview of AI theories and emerging technologies:
+### 1. System Overview
 
-- The Fourth Industrial Revolution and the transformation of IT
-- AI learning types: Supervised, Unsupervised, and Reinforcement Learning
-- Machine Learning and Deep Learning models including CNNs and Transformers
-- AI UX and AIX (Artificial Intelligence User Experience Design)
-- Includes various examples and visual materials
+- **Purpose:** Estimates age (0-100) and gender (Male/Female) from face images in real-time.
+- **Face Detection:** OpenCV CascadeClassifier or Dlib get_frontal_face_detector.
+- **Architecture:** WideResNet CNN (depth=16, width=8) pre-trained on IMDB-WIKI dataset.
 
+### 2. Dataset and Models
 
-## 2. Computer Vision
-This section explores both the theory and practical applications of computer vision:
+- **IMDB-WIKI Dataset:** 500K+ face images with age/gender labels (IMDb: 460K, Wiki: 523K).
+- **DEX Model:** Deep EXpectation (2016) predicts apparent age without facial landmarks.
+- **Weights:** Pre-trained WideResNet-28-3.73.hdf5; HDF5 format for Keras/TensorFlow.
 
-- Introduction to Computer Vision and its significance
-- Image processing, edge detection, and line/face recognition techniques
-- Real-world application: Driver Drowsiness Detection System
-- Color models, image segmentation, and OpenCV-based practices
+### 3. Wide Residual Network (WRN)
 
+- **Improvements over ResNet:** Wider channels reduce gradient vanishing; excels on CIFAR/SVHN/COCO.
+- **Architecture:** Conv1 → 3 residual layers → Global Avg Pool → Age(101)/Gender(2) classifiers.
+- **Key Features:** Dropout (0.0-0.5), L2 regularization, He normal initialization.
 
-### Vision AI Projects:
+### 4. FaceCV Implementation
 
-#### 1. Drowsy Driving Prevention System
-A real-time system that uses facial landmarks and Eye Aspect Ratio (EAR) to detect driver drowsiness, triggering alarms and visual alerts.
+- **Preprocessing:** Crop faces with 40px margin → resize to 64x64 → normalize.
+- **Detection Pipeline:** Grayscale input → Dlib detector → multi-face batch prediction.
+- **Visualization:** Bounding boxes + age/gender labels + real-time FPS overlay.
 
-#### 2. Real-Time Open-Vocabulary Object Detection
-Implements YOLO-World to detect arbitrary objects via user-defined prompts in real-time, with a web-based interface:contentReference.
+### 5. Real-time Processing
 
-#### 3. Human Pose Estimation
-Uses YOLOv8-pose for real-time keypoint detection and action classification (e.g., sitting vs standing) via XGBoost:contentReference.
+- **Video Input:** Webcam or sample video; ESC key to exit.
+- **Batch Inference:** Multiple detected faces processed simultaneously for efficiency.
+- **Performance:** FPS calculation; handles varying frame rates dynamically.
 
-#### 4. Age & Gender Recognition
-Estimates age and gender from faces using a WideResNet model trained on IMDB-WIKI dataset with real-time webcam support:contentReference.
+### 6. Code Structure
 
-#### 5. Object Tracking Systems
-Explores single and multi-object tracking using algorithms like SORT and DeepSORT with YOLOv8 for real-time applications.
+- **WideResNet Class:** Builds residual blocks with configurable depth/width.
+- **FaceCV Class:** Orchestrates detection, cropping, prediction, visualization.
+- **Dependencies:** Keras, TensorFlow, OpenCV, Dlib, argparse for CLI args.
 
-#### 6. Road Segmentation & Object Detection
-Combines YOLOv8 object detection with DeepLabv3 segmentation using OpenVINO for ADAS applications.
+### 7. Example Video
 
-#### 7. Korean License Plate Recognition
-Detects and reads Korean vehicle license plates in real time using YOLOv8, YOLOv5, and EasyOCR.
+The following video demonstrates real-time face detection and age/gender prediction.
 
-#### 8. Three-Dimensional Computer Vision
-Implements 3D object detection and monocular depth estimation with BEV visualization using LiDAR/KITTI datasets.
+https://github.com/user-attachments/assets/e2d8fa68-9415-451c-af99-a8627e2ab1a2
+
+The subject in the demo is a 34-year-old male. The model estimated the age close to the actual age and correctly predicted the gender.
 
 </details>
 
 <details>
 <summary>KOR (한국어 버전)</summary>
 
-# 인공지능 및 영상 인식 프로젝트
+# 연령 및 성별 인식
 
-## 1. 인공지능 개념 이해
-AI에 대한 이론과 기술 트렌드를 정리했습니다.
+### 1. 시스템 개요
 
-- 4차 산업혁명과 IT 기술의 변화
-- 인공지능 학습 유형: 지도학습, 비지도학습, 강화학습
-- 머신러닝과 딥러닝 모델, CNN, Transformer
-- AI UX 및 AIX(사용자 경험 설계)까지 포괄
-- 다양한 예시와 시각적 자료 포함
+- **목적:** 얼굴 이미지에서 실시간 연령(0-100) 및 성별(Male/Female) 추정.
+- **얼굴 검출:** OpenCV CascadeClassifier 또는 Dlib get_frontal_face_detector.
+- **구조:** IMDB-WIKI 데이터셋 사전학습 WideResNet CNN(depth=16, width=8).
 
+### 2. 데이터셋 및 모델
 
-## 2. 영상 인식
-컴퓨터 비전의 이론부터 실습까지 정리했습니다.
+- **IMDB-WIKI 데이터셋:** 연령/성별 레이블 50만+ 얼굴 이미지(IMDb:46만, Wiki:52만).
+- **DEX 모델:** Deep EXpectation(2016); 랜드마크 없이 겉보기 연령 예측.
+- **가중치:** 사전학습 WideResNet-28-3.73.hdf5; Keras/TensorFlow용 HDF5 형식.
 
-- Computer Vision의 개요 및 필요성
-- 이미지 처리, 에지 검출, 선/얼굴 인식 기술
-- 실제 구현 사례: 졸음운전 감지 시스템
-- 색상 모델, 세분화, OpenCV 활용 실습
+### 3. Wide Residual Network (WRN)
 
+- **ResNet 개선:** 더 넓은 채널로 기울기 소실 감소; CIFAR/SVHN/COCO 우수 성능.
+- **구조:** Conv1 → 3 잔차 층 → Global Avg Pool → 연령(101)/성별(2) 분류기.
+- **특징:** Dropout(0.0-0.5), L2 정규화, He normal 초기화.
 
-### Vision AI 프로젝트
+### 4. FaceCV 구현
 
-#### 1. 졸음운전 방지 시스템
-눈 종횡비(EAR) 기반으로 졸음을 실시간 감지하고, 경고음 및 시각적 알림을 제공하는 시스템
+- **전처리:** 40px 마진 크롭 → 64x64 리사이즈 → 정규화.
+- **검출 파이프라인:** 그레이스케일 입력 → Dlib 검출기 → 다중 얼굴 배치 예측.
+- **시각화:** 바운딩 박스 + 연령/성별 레이블 + 실시간 FPS 오버레이.
 
-#### 2. 실시간 개방형 어휘 객체 탐지
-YOLO-World를 활용해 프롬프트 기반 실시간 객체 탐지를 수행하며 웹 앱 UI도 포함
+### 5. 실시간 처리
 
-#### 3. 인간 자세 추정
-YOLOv8-pose로 키포인트 추출 및 XGBoost 분류기를 활용해 자세(앉기/서기)를 실시간 예측
+- **비디오 입력:** 웹캠 또는 샘플 비디오; ESC 키 종료.
+- **배치 추론:** 검출된 다중 얼굴 동시 처리로 효율성 향상.
+- **성능:** FPS 계산; 다양한 프레임 속도 동적 처리.
 
-#### 4. 연령 및 성별 인식
-IMDB-WIKI 학습 모델(WideResNet)을 기반으로 얼굴에서 연령과 성별을 실시간으로 추정
+### 6. 코드 구조
 
-#### 5. 객체 추적 시스템
-YOLOv8과 DeepSORT를 이용해 다중 객체의 위치와 ID를 추적하는 실시간 트래킹 시스템
+- **WideResNet 클래스:** 구성가능 깊이/너비의 잔차 블록 구축.
+- **FaceCV 클래스:** 검출, 크롭, 예측, 시각화 조율.
+- **종속성:** Keras, TensorFlow, OpenCV, Dlib, CLI 인자용 argparse.
 
-#### 6. 도로 분할 및 객체 탐지
-OpenVINO 기반 도로 영역 세분화와 객체 탐지를 결합하여 ADAS 기능 구현
+### 7. 예시 영상
 
-#### 7. 한국 번호판 인식
-YOLOv8과 EasyOCR을 이용하여 실시간으로 차량 번호판을 인식하고 추적하는 시스템
+아래 영상은 실시간 얼굴 검출 및 연령/성별 예측 결과를 보여줍니다.
 
-#### 8. 3차원 컴퓨터 비전
-LiDAR 및 단안 깊이 추정을 활용한 3D 객체 탐지와 BEV 시각화를 포함한 실시간 구현
+https://github.com/user-attachments/assets/585eafd5-3036-4488-82a5-0197c58737eb
+
+영상 속 인물의 실제 나이는 34세이며 남성입니다. 모델은 실제 나이와 비슷한 연령을 예측했으며, 성별은 정확하게 분류했습니다.
 
 </details>

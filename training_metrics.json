@@ -1,0 +1,25 @@
+{
+  "accuracy": 1.0,
+  "split": "stratified_random_image_split",
+  "train_rows": 92,
+  "test_rows": 24,
+  "class_counts": {
+    "0": 60,
+    "1": 56
+  },
+  "class_names": [
+    "sitting",
+    "standing"
+  ],
+  "confusion_matrix": [
+    [
+      12,
+      0
+    ],
+    [
+      0,
+      12
+    ]
+  ],
+  "note": "연속 촬영 프레임을 무작위 분할한 정확도입니다. 별도 촬영/실시간 정확도는 따로 확인하세요."
+}

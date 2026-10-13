@@ -1,103 +1,85 @@
 <details>
 <summary>ENG (English Version)</summary>
 
-# Artificial Intelligence & Computer Vision Projects
+# Human Pose Estimation
 
-## 1. Understanding Artificial Intelligence
-This section provides an overview of AI theories and emerging technologies:
+### 1. Pose Estimation Overview
 
-- The Fourth Industrial Revolution and the transformation of IT
-- AI learning types: Supervised, Unsupervised, and Reinforcement Learning
-- Machine Learning and Deep Learning models including CNNs and Transformers
-- AI UX and AIX (Artificial Intelligence User Experience Design)
-- Includes various examples and visual materials
+- **Definition:** Detects human body keypoints (joints) for skeleton reconstruction in images/videos.
+- **Applications:** Action recognition, motion analysis, sports analytics, surveillance.
+- **Keypoint Standards:** COCO (17 keypoints), OpenPose (25 body + 68 face + 42 hands + 6 feet).
 
+### 2. Detection Approaches
 
-## 2. Computer Vision
-This section explores both the theory and practical applications of computer vision:
+- **Top-Down:** Detect person → crop → estimate pose per person (AlphaPose, Mask R-CNN); scales poorly with crowds.
+- **Bottom-Up:** Detect all keypoints → group into persons (OpenPose, HRNet, DeepCut); efficient for multi-person.
+- **2D vs 3D:** 2D (x,y coordinates) vs 3D (x,y,z); 3D requires depth estimation.
 
-- Introduction to Computer Vision and its significance
-- Image processing, edge detection, and line/face recognition techniques
-- Real-world application: Driver Drowsiness Detection System
-- Color models, image segmentation, and OpenCV-based practices
+### 3. YOLOv8 Pose Implementation
 
+- **Model Variants:** yolov8n-pose.pt (nano), s/m/l/x sizes for speed/accuracy trade-off.
+- **Real-time Pipeline:** Webcam input → YOLO pose inference → keypoint visualization.
+- **Output Format:** Bounding box + confidence + 17 keypoints (x,y,norm-confidence).
 
-### Vision AI Projects:
+### 4. Action Recognition Pipeline
 
-#### 1. Drowsy Driving Prevention System
-A real-time system that uses facial landmarks and Eye Aspect Ratio (EAR) to detect driver drowsiness, triggering alarms and visual alerts.
+- **Data Collection:** 13.2DPoseSave.py extracts keypoints from sitting/standing videos → keypoints.csv.
+- **Dataset Prep:** 14.2DPoseDatasetSave.py creates labeled dataset.csv (sitting=0, standing=1).
+- **XGBoost Training:** 15.2DPoseTraining.py trains binary classifier on keypoint features.
 
-#### 2. Real-Time Open-Vocabulary Object Detection
-Implements YOLO-World to detect arbitrary objects via user-defined prompts in real-time, with a web-based interface:contentReference.
+### 5. Pose-based Classification
 
-#### 3. Human Pose Estimation
-Uses YOLOv8-pose for real-time keypoint detection and action classification (e.g., sitting vs standing) via XGBoost:contentReference.
+- **Real-time Inference:** 16.2DPoseActionRecognition.py → YOLO pose → XGBoost predict → label overlay.
+- **Performance:** Train/test split (80/20), accuracy scoring, model weights saved as modelweights.xgb.
+- **Libraries:** ultralytics, xgboost, scikit-learn, pandas for end-to-end pipeline.
 
-#### 4. Age & Gender Recognition
-Estimates age and gender from faces using a WideResNet model trained on IMDB-WIKI dataset with real-time webcam support:contentReference.
+### 6. Key Advantages
 
-#### 5. Object Tracking Systems
-Explores single and multi-object tracking using algorithms like SORT and DeepSORT with YOLOv8 for real-time applications.
-
-#### 6. Road Segmentation & Object Detection
-Combines YOLOv8 object detection with DeepLabv3 segmentation using OpenVINO for ADAS applications.
-
-#### 7. Korean License Plate Recognition
-Detects and reads Korean vehicle license plates in real time using YOLOv8, YOLOv5, and EasyOCR.
-
-#### 8. Three-Dimensional Computer Vision
-Implements 3D object detection and monocular depth estimation with BEV visualization using LiDAR/KITTI datasets.
+- **Efficiency:** Bottom-up single-stage processing handles crowds better than top-down.
+- **Real-time:** YOLOv8 achieves webcam inference with keypoint extraction + classification.
+- **Extensibility:** 133+ keypoints (COCO wholebody) support complex action analysis.
 
 </details>
 
 <details>
 <summary>KOR (한국어 버전)</summary>
 
-# 인공지능 및 영상 인식 프로젝트
+# 인간 자세 추정
 
-## 1. 인공지능 개념 이해
-AI에 대한 이론과 기술 트렌드를 정리했습니다.
+### 1. 자세 추정 개요
 
-- 4차 산업혁명과 IT 기술의 변화
-- 인공지능 학습 유형: 지도학습, 비지도학습, 강화학습
-- 머신러닝과 딥러닝 모델, CNN, Transformer
-- AI UX 및 AIX(사용자 경험 설계)까지 포괄
-- 다양한 예시와 시각적 자료 포함
+- **정의:** 이미지/비디오에서 인간 신체 키포인트(관절) 검출로 골격 재구성.
+- **응용:** 행동 인식, 동작 분석, 스포츠 분석, 감시.
+- **키포인트 표준:** COCO(17개), OpenPose(25몸체+68얼굴+42손+6발).
 
+### 2. 검출 접근법
 
-## 2. 영상 인식
-컴퓨터 비전의 이론부터 실습까지 정리했습니다.
+- **Top-Down:** 사람 검출 → 크롭 → 개인별 자세 추정(AlphaPose, Mask R-CNN); 군중에서 확장성 저하.
+- **Bottom-Up:** 모든 키포인트 검출 → 사람별 그룹화(OpenPose, HRNet, DeepCut); 다중인원 효율적.
+- **2D vs 3D:** 2D(x,y 좌표) vs 3D(x,y,z); 3D는 깊이 추정 필요.
 
-- Computer Vision의 개요 및 필요성
-- 이미지 처리, 에지 검출, 선/얼굴 인식 기술
-- 실제 구현 사례: 졸음운전 감지 시스템
-- 색상 모델, 세분화, OpenCV 활용 실습
+### 3. YOLOv8 Pose 구현
 
+- **모델 변형:** yolov8n-pose.pt(나노), s/m/l/x 속도/정확도 트레이드오프.
+- **실시간 파이프라인:** 웹캠 입력 → YOLO pose 추론 → 키포인트 시각화.
+- **출력 형식:** 바운딩 박스 + 신뢰도 + 17 키포인트(x,y,정규화신뢰도).
 
-### Vision AI 프로젝트
+### 4. 행동 인식 파이프라인
 
-#### 1. 졸음운전 방지 시스템
-눈 종횡비(EAR) 기반으로 졸음을 실시간 감지하고, 경고음 및 시각적 알림을 제공하는 시스템
+- **데이터 수집:** 13.2DPoseSave.py로 앉기/서기 비디오에서 키포인트 추출 → keypoints.csv.
+- **데이터셋 준비:** 14.2DPoseDatasetSave.py로 레이블링된 dataset.csv(sitting=0, standing=1) 생성.
+- **XGBoost 훈련:** 15.2DPoseTraining.py로 키포인트 특징 기반 이진 분류기 학습.
 
-#### 2. 실시간 개방형 어휘 객체 탐지
-YOLO-World를 활용해 프롬프트 기반 실시간 객체 탐지를 수행하며 웹 앱 UI도 포함
+### 5. 자세 기반 분류
 
-#### 3. 인간 자세 추정
-YOLOv8-pose로 키포인트 추출 및 XGBoost 분류기를 활용해 자세(앉기/서기)를 실시간 예측
+- **실시간 추론:** 16.2DPoseActionRecognition.py → YOLO pose → XGBoost 예측 → 레이블 오버레이.
+- **성능:** 훈련/테스트 분할(80/20), 정확도 평가, modelweights.xgb로 모델 저장.
+- **라이브러리:** ultralytics, xgboost, scikit-learn, pandas로 엔드투엔드 파이프라인.
 
-#### 4. 연령 및 성별 인식
-IMDB-WIKI 학습 모델(WideResNet)을 기반으로 얼굴에서 연령과 성별을 실시간으로 추정
+### 6. 주요 장점
 
-#### 5. 객체 추적 시스템
-YOLOv8과 DeepSORT를 이용해 다중 객체의 위치와 ID를 추적하는 실시간 트래킹 시스템
-
-#### 6. 도로 분할 및 객체 탐지
-OpenVINO 기반 도로 영역 세분화와 객체 탐지를 결합하여 ADAS 기능 구현
-
-#### 7. 한국 번호판 인식
-YOLOv8과 EasyOCR을 이용하여 실시간으로 차량 번호판을 인식하고 추적하는 시스템
-
-#### 8. 3차원 컴퓨터 비전
-LiDAR 및 단안 깊이 추정을 활용한 3D 객체 탐지와 BEV 시각화를 포함한 실시간 구현
+- **효율성:** Bottom-up 단일단계 처리로 Top-down 대비 군중 처리 우수.
+- **실시간:** YOLOv8로 웹캠 추론 + 키포인트 추출 + 분류 가능.
+- **확장성:** COCO wholebody 133+ 키포인트로 복잡 행동 분석 지원.
 
 </details>

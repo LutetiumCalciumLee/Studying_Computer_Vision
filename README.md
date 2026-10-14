@@ -46,14 +46,11 @@
 
 - Open Vocabulary Detection ResNet  
 
-
-https://github.com/user-attachments/assets/79523ff9-c2e6-4769-b90c-dd43c5b4f988
-
+https://github.com/user-attachments/assets/975a585b-1054-4687-8321-24dbb2f1b000
 
 - Open Vocabulary Detection YOLO World  
 
-
-https://github.com/user-attachments/assets/53078da6-49da-4fd5-a7a9-583728952220
+https://github.com/user-attachments/assets/9a84ff32-07dd-478a-ae41-1f43592106c5
 
 
 </details>
@@ -106,13 +103,11 @@ https://github.com/user-attachments/assets/53078da6-49da-4fd5-a7a9-583728952220
 
 - Open Vocabulary Detection ResNet  
 
-
-https://github.com/user-attachments/assets/79523ff9-c2e6-4769-b90c-dd43c5b4f988
-
+https://github.com/user-attachments/assets/975a585b-1054-4687-8321-24dbb2f1b000
 
 - Open Vocabulary Detection YOLO World  
 
+https://github.com/user-attachments/assets/9a84ff32-07dd-478a-ae41-1f43592106c5
 
-https://github.com/user-attachments/assets/53078da6-49da-4fd5-a7a9-583728952220
 
 </details>

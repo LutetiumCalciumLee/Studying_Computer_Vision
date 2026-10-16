@@ -1,103 +1,113 @@
 <details>
 <summary>ENG (English Version)</summary>
 
-# Artificial Intelligence & Computer Vision Projects
+# Real-Time Open-Vocabulary Object Detection
 
-## 1. Understanding Artificial Intelligence
-This section provides an overview of AI theories and emerging technologies:
+### 1. Environment Setup
 
-- The Fourth Industrial Revolution and the transformation of IT
-- AI learning types: Supervised, Unsupervised, and Reinforcement Learning
-- Machine Learning and Deep Learning models including CNNs and Transformers
-- AI UX and AIX (Artificial Intelligence User Experience Design)
-- Includes various examples and visual materials
+- **GPU Requirements:** NVIDIA GeForce RTX 3060 Laptop GPU; verifies GPU availability with `torch.cuda.is_available()`.
+- **Python Environment:** Windows, Conda `vision_ai`, Python 3.12.12.
+- **PyTorch + CUDA:** Uses `torch 2.10.0+cu126`, a CUDA 12.6 build, for GPU inference; supports automatic device selection, `--device cuda`, and `--device cpu`.
 
+### 2. YOLOv8 Foundation
 
-## 2. Computer Vision
-This section explores both the theory and practical applications of computer vision:
+- **Ultralytics Installation:** `pip install ultralytics`; basic detection workflow using `yolov8n.pt`.
+- **Basic Detection:** Webcam input → GPU inference → frames annotated with bounding boxes and confidence scores.
+- **Custom Dataset Pipeline:** Learning workflow: `labelme` → `labelme2yolo` → `dataset.yaml` → training with `yolov8n.pt`.
 
-- Introduction to Computer Vision and its significance
-- Image processing, edge detection, and line/face recognition techniques
-- Real-world application: Driver Drowsiness Detection System
-- Color models, image segmentation, and OpenCV-based practices
+### 3. Open-Vocabulary Detection (OVOD)
 
+- **YOLO-World Architecture:** CLIP text encoder → text–image feature fusion → object detection based on user prompts.
+- **Zero-Shot Capability:** Detects objects specified by English names, such as `person`, `cup`, and `dog`, without retraining for each vocabulary change.
+- **Prompt-then-Detect:** Applies target labels with `set_classes()`; supports changing detection targets through the web interface.
 
-### Vision AI Projects:
+### 4. YOLO-World Implementation
 
-#### 1. Drowsy Driving Prevention System
-A real-time system that uses facial landmarks and Eye Aspect Ratio (EAR) to detect driver drowsiness, triggering alarms and visual alerts.
+- **Model Loading:** `YOLOWorld('00_Models/yolov8x-worldv2.pt')` → `set_classes(['person', 'cup'])` → webcam inference.
+- **DETR Comparison:** Uses `facebook/detr-resnet-50` as a fixed-COCO-class comparison; optimizes both webcam and web scripts with smaller inputs, CUDA FP16, and GPU preprocessing where supported.
+- **Performance:** DETR frame processing improved from approximately 5.0 FPS to 9.9 FPS at the default 480px setting, and 15.6 FPS at 320px.
+- **Execution Structure:** Four standalone Python scripts for YOLO-World/DETR webcam and web applications, with `00_Models` and Git LFS configuration prepared for GitHub upload.
 
-#### 2. Real-Time Open-Vocabulary Object Detection
-Implements YOLO-World to detect arbitrary objects via user-defined prompts in real-time, with a web-based interface:contentReference.
+*Performance was measured on the RTX 3060 Laptop GPU using 640×480 synthetic frames, four warm-up iterations, and the median of 12 CUDA-synchronized processing times. Camera capture, JPEG encoding, and HTTP transmission are excluded; smaller inputs may reduce small-object accuracy.*
 
-#### 3. Human Pose Estimation
-Uses YOLOv8-pose for real-time keypoint detection and action classification (e.g., sitting vs standing) via XGBoost:contentReference.
+### 5. Web Application
 
-#### 4. Age & Gender Recognition
-Estimates age and gender from faces using a WideResNet model trained on IMDB-WIKI dataset with real-time webcam support:contentReference.
+- **Flask Backend:** `/video_feed` streams MJPEG; `/update_classes` changes target labels; `/upload_image` returns annotated images.
+- **Frontend:** Embedded HTML, CSS, and JavaScript provide class input, webcam start/stop, and image upload.
+- **Local Execution:** YOLO-World at `http://127.0.0.1:5000`; DETR at `http://127.0.0.1:5001`. DETR accepts only supported COCO labels.
 
-#### 5. Object Tracking Systems
-Explores single and multi-object tracking using algorithms like SORT and DeepSORT with YOLOv8 for real-time applications.
+### 6. Key Advantages
 
-#### 6. Road Segmentation & Object Detection
-Combines YOLOv8 object detection with DeepLabv3 segmentation using OpenVINO for ADAS applications.
+- **Flexibility:** Changes YOLO-World detection targets through user-defined text without model retraining.
+- **Efficiency:** Uses GPU inference and DETR input-size/mixed-precision optimization to improve frame-processing speed.
+- **Versatility:** Supports webcam and uploaded-image detection; standalone scripts and script-relative model paths simplify execution in other environments.
 
-#### 7. Korean License Plate Recognition
-Detects and reads Korean vehicle license plates in real time using YOLOv8, YOLOv5, and EasyOCR.
+### 7. Demo Video
 
-#### 8. Three-Dimensional Computer Vision
-Implements 3D object detection and monocular depth estimation with BEV visualization using LiDAR/KITTI datasets.
+- Open Vocabulary Detection ResNet  
+
+https://github.com/user-attachments/assets/975a585b-1054-4687-8321-24dbb2f1b000
+
+- Open Vocabulary Detection YOLO World  
+
+https://github.com/user-attachments/assets/9a84ff32-07dd-478a-ae41-1f43592106c5
+
 
 </details>
 
 <details>
 <summary>KOR (한국어 버전)</summary>
 
-# 인공지능 및 영상 인식 프로젝트
+# 실시간 Open Vocabulary 객체 탐지
 
-## 1. 인공지능 개념 이해
-AI에 대한 이론과 기술 트렌드를 정리했습니다.
+### 1. 환경 구축
 
-- 4차 산업혁명과 IT 기술의 변화
-- 인공지능 학습 유형: 지도학습, 비지도학습, 강화학습
-- 머신러닝과 딥러닝 모델, CNN, Transformer
-- AI UX 및 AIX(사용자 경험 설계)까지 포괄
-- 다양한 예시와 시각적 자료 포함
+- **GPU 요구사항:** NVIDIA GeForce RTX 3060 Laptop GPU 사용; `torch.cuda.is_available()`로 GPU 사용 가능 여부 확인.
+- **Python 환경:** Windows, Conda `vision_ai`, Python 3.12.12.
+- **PyTorch + CUDA:** CUDA 12.6 지원 빌드인 `torch 2.10.0+cu126`으로 GPU 추론; 장치 자동 선택, `--device cuda`, `--device cpu` 지원.
 
+### 2. YOLOv8 기반
 
-## 2. 영상 인식
-컴퓨터 비전의 이론부터 실습까지 정리했습니다.
+- **Ultralytics 설치:** `pip install ultralytics`; `yolov8n.pt`를 활용한 기본 객체 탐지 흐름.
+- **기본 탐지:** 웹캠 입력 → GPU 추론 → 탐지 박스와 신뢰도를 표시한 결과 프레임.
+- **커스텀 데이터셋:** 학습 흐름 정리: `labelme` → `labelme2yolo` → `dataset.yaml` → `yolov8n.pt` 훈련.
 
-- Computer Vision의 개요 및 필요성
-- 이미지 처리, 에지 검출, 선/얼굴 인식 기술
-- 실제 구현 사례: 졸음운전 감지 시스템
-- 색상 모델, 세분화, OpenCV 활용 실습
+### 3. 개방형 어휘 탐지 (OVOD)
 
+- **YOLO-World 구조:** CLIP 텍스트 인코더 → 텍스트·이미지 특징 융합 → 사용자 프롬프트에 따른 객체 탐지.
+- **제로샷 기능:** `person`, `cup`, `dog` 등의 영어 객체 이름을 지정하고, 어휘 변경마다 재학습 없이 탐지.
+- **프롬프트-탐지:** `set_classes()`로 탐지 대상을 적용하고 웹 인터페이스에서 변경.
 
-### Vision AI 프로젝트
+### 4. YOLO-World 구현
 
-#### 1. 졸음운전 방지 시스템
-눈 종횡비(EAR) 기반으로 졸음을 실시간 감지하고, 경고음 및 시각적 알림을 제공하는 시스템
+- **모델 로딩:** `YOLOWorld('00_Models/yolov8x-worldv2.pt')` → `set_classes(['person', 'cup'])` → 웹캠 추론.
+- **DETR 비교:** COCO 고정 클래스 모델인 `facebook/detr-resnet-50`을 비교 대상으로 구성; 웹캠·웹용 파일 모두 입력 크기 축소, CUDA FP16, 지원되는 GPU 전처리 적용.
+- **성능:** DETR 프레임 처리 성능을 약 5.0 FPS에서 기본 480px 설정의 9.9 FPS, 속도 우선 320px 설정의 15.6 FPS로 개선.
+- **실행 구성:** YOLO-World·DETR 각각 웹캠용·웹용으로 총 네 Python 파일 독립 실행; `00_Models`와 Git LFS 설정을 포함해 GitHub 업로드 준비.
 
-#### 2. 실시간 개방형 어휘 객체 탐지
-YOLO-World를 활용해 프롬프트 기반 실시간 객체 탐지를 수행하며 웹 앱 UI도 포함
+*성능은 RTX 3060 Laptop GPU에서 640×480 합성 프레임으로 워밍업 4회 후 12회 처리 시간의 중앙값을 사용하고, CUDA 연산 완료까지 동기화해 측정했습니다. 카메라 캡처·JPEG 인코딩·HTTP 전송은 제외하며, 입력 축소 시 작은 객체의 탐지 정확도가 낮아질 수 있습니다.*
 
-#### 3. 인간 자세 추정
-YOLOv8-pose로 키포인트 추출 및 XGBoost 분류기를 활용해 자세(앉기/서기)를 실시간 예측
+### 5. 웹 애플리케이션
 
-#### 4. 연령 및 성별 인식
-IMDB-WIKI 학습 모델(WideResNet)을 기반으로 얼굴에서 연령과 성별을 실시간으로 추정
+- **Flask 백엔드:** `/video_feed` MJPEG 스트리밍; `/update_classes` 탐지 클래스 변경; `/upload_image` 탐지 결과 이미지 반환.
+- **프론트엔드:** HTML·CSS·JavaScript 내장; 클래스 입력, 웹캠 시작·중지, 이미지 업로드 기능 제공.
+- **로컬 실행:** YOLO-World는 `http://127.0.0.1:5000`, DETR는 `http://127.0.0.1:5001`로 접속. DETR는 지원하는 COCO 클래스만 입력 가능.
 
-#### 5. 객체 추적 시스템
-YOLOv8과 DeepSORT를 이용해 다중 객체의 위치와 ID를 추적하는 실시간 트래킹 시스템
+### 6. 주요 장점
 
-#### 6. 도로 분할 및 객체 탐지
-OpenVINO 기반 도로 영역 세분화와 객체 탐지를 결합하여 ADAS 기능 구현
+- **유연성:** 모델 재학습 없이 사용자 입력 텍스트로 YOLO-World 탐지 대상 변경.
+- **효율성:** GPU 추론과 DETR 입력 크기·혼합 정밀도 최적화로 프레임 처리 속도 개선.
+- **다재다능:** 웹캠·업로드 이미지 탐지 지원; 독립 실행 파일과 파일 위치 기준 모델 경로로 다른 환경에서의 실행 편의성 확보.
 
-#### 7. 한국 번호판 인식
-YOLOv8과 EasyOCR을 이용하여 실시간으로 차량 번호판을 인식하고 추적하는 시스템
+### 7. 실행 영상
 
-#### 8. 3차원 컴퓨터 비전
-LiDAR 및 단안 깊이 추정을 활용한 3D 객체 탐지와 BEV 시각화를 포함한 실시간 구현
+- Open Vocabulary Detection ResNet  
+
+https://github.com/user-attachments/assets/975a585b-1054-4687-8321-24dbb2f1b000
+
+- Open Vocabulary Detection YOLO World  
+
+https://github.com/user-attachments/assets/9a84ff32-07dd-478a-ae41-1f43592106c5
+
 
 </details>

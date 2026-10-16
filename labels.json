@@ -1,0 +1,10 @@
+{
+  "id_to_name": {
+    "0": "sitting",
+    "1": "standing"
+  },
+  "name_to_id": {
+    "sitting": 0,
+    "standing": 1
+  }
+}

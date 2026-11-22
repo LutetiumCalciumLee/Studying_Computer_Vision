@@ -35,7 +35,7 @@
 
 </details>
 
-<details>
+<details open>
 <summary>KOR (한국어 버전)</summary>
 
 # 엣지 검출 기법

@@ -325,7 +325,7 @@ What was learned through this project:
 **Development Environment**: Windows, Python, OpenCV, NumPy
 
 </details>
-<details> <summary>KOR (한국어 버전) </summary>
+<details open> <summary>KOR (한국어 버전) </summary>
 
 # 사과 검출 프로젝트 (Apple Detection Project)
 

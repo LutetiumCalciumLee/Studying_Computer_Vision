@@ -57,7 +57,7 @@ https://github.com/user-attachments/assets/07299e0a-910c-4d1f-a88d-2e0d1204eace
 
 </details>
 
-<details>
+<details open>
 <summary>KOR (한국어 버전)</summary>
 
 # 도로 분할 및 객체 탐지

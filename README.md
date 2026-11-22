@@ -142,7 +142,7 @@ Replace the video path with an existing file on your computer.
 
 </details>
 
-<details>
+<details open>
 <summary>KOR (한국어 버전)</summary>
 
 # 객체 추적 시스템

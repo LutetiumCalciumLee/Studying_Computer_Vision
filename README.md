@@ -49,7 +49,7 @@ The subject in the demo is a 34-year-old male. The model estimated the age close
 
 </details>
 
-<details>
+<details open>
 <summary>KOR (한국어 버전)</summary>
 
 # 연령 및 성별 인식

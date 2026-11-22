@@ -82,7 +82,7 @@ Explores 3D object detection and depth estimation, including Bird's Eye View (BE
 
 </details>
 
-<details>
+<details open>
 <summary>KOR (한국어 버전)</summary>
 
 # 인공지능 및 컴퓨터 비전 프로젝트

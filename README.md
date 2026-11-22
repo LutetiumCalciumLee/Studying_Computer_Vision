@@ -181,7 +181,7 @@ https://github.com/user-attachments/assets/6ee32b18-d955-4867-b918-548e15e5c51a
 
 </details>
 
-<details>
+<details open>
 <summary>KOR (한국어 버전)</summary>
 
 # 단안 영상 기반 3D 객체 탐지 및 BEV 시각화

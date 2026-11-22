@@ -85,7 +85,7 @@ https://github.com/user-attachments/assets/3f8ff787-0993-4567-ae1a-4804891ebe41
 
 </details>
 
-<details>
+<details open>
 <summary>KOR (한국어 버전)</summary>
 
 # 인간 자세 추정 기반 앉은 자세·서 있는 자세 분류

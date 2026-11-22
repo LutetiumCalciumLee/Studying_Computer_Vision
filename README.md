@@ -166,7 +166,7 @@ Copied model file to temp path: C:\...\shape_predictor_68_face_landmarks.dat
 
 </details>
 
-<details> <summary>KOR (한국어 버전)</summary>
+<details open> <summary>KOR (한국어 버전)</summary>
 
 # 얼굴 랜드마크 윤곽선 프로젝트 (Facial Landmarks Outline)
 

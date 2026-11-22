@@ -319,7 +319,7 @@ https://github.com/user-attachments/assets/000004e4-61c5-45e4-be8d-9258df46cb66
 
 </details>
 
-<details>
+<details open>
 <summary>KOR (한국어 버전)</summary>
 
 # 한국 차량 번호판 인식

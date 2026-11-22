@@ -55,7 +55,7 @@ https://github.com/user-attachments/assets/9a84ff32-07dd-478a-ae41-1f43592106c5
 
 </details>
 
-<details>
+<details open>
 <summary>KOR (한국어 버전)</summary>
 
 # 실시간 Open Vocabulary 객체 탐지

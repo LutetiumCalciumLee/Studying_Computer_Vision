@@ -283,7 +283,7 @@ Demo checklist:
 
 </details>
 
-<details>
+<details open>
 <summary>KOR (한국어 버전)</summary>
 
 # 실시간 졸음 감지 시스템
